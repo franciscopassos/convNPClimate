@@ -1,0 +1,12 @@
+# Keep dataset content uncommitted
+datasets/EOBS
+datasets/ERA5_Land
+datasets/MeteoSwiss
+
+# Byte-compiled files
+*.pyc
+
+# Default LLM instructions
+.ignore
+GEMINI.md
+CLAUDE.md

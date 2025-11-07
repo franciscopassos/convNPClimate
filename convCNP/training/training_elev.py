@@ -100,7 +100,7 @@ def train_epoch_elev(model, opt, training_data, ll, elev, dists):
     for task in training_data:
         # Generate a mask
         obj, opt, model = train_batch_elev(task, opt, model, ll, elev, dists)
-        batch_objs.append(np.float(obj.item()))
+        batch_objs.append(float(obj.item()))
     train_ll = np.mean(np.array(batch_objs)[-5:])
     
     return train_ll
