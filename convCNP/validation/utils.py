@@ -50,19 +50,19 @@ def load_model_precip(PATH, N_CHANNELS, x_context, x_target, device):
   
     return model
 
-def load_model(PATH, N_CHANNELS, x_context, x_target, device):
+def load_model(PATH, N_CHANNELS, x_context, x_target, device, IN_CHANNELS=25, LENGTH_SCALE=0.1, N_BLOCKS=6, KERNEL_SIZE=5):
     """
     Load a pretrained model
     """
-    decoder = CNN(n_channels = 128, 
-        ConvBlock=ResConvBlock,n_blocks=6,
+    decoder = CNN(n_channels = N_CHANNELS, 
+        ConvBlock=ResConvBlock,n_blocks=N_BLOCKS,
         Conv=nn.Conv2d,
         Normalization=nn.Identity,
-        kernel_size=5)
+        kernel_size=KERNEL_SIZE)
     model = TmaxBiasConvCNPElev(
         decoder, 
-        in_channels=25, 
-        ls = 0.1)
+        in_channels=IN_CHANNELS, 
+        ls = LENGTH_SCALE)
     model.to(device)
     checkpoint = torch.load(PATH, map_location=device)
     weights = OrderedDict([(k[7:], v) for k, v in checkpoint['model_state_dict'].items()])
